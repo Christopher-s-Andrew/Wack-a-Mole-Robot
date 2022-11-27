@@ -1,6 +1,7 @@
 %camera color detection
 function [Xc, Yc, Zc] = blobFinder(camera1, camera2, steroParameters, filter)
     %use color finder to determin threshold for buttons latter
+    %may need seperate filters for each image?
     if (filter == "red") %red button
         c1Min = 0.857;
         c1Max = 0.0;
@@ -49,7 +50,7 @@ function [Xc, Yc, Zc] = blobFinder(camera1, camera2, steroParameters, filter)
 (image2_colorSpace(:,:,2) >= c2Min ) & (image2_colorSpace(:,:,2) <= c2Max) & ...
 (image2_colorSpace(:,:,3) >= c3Min ) & (image2_colorSpace(:,:,3) <= c3Max);
 
-    %show masked image for 1 camera
+    %show masked image for 1 camera (DEBUG)
     im1_masked = image1_mask;
     imageToShowMask=image1;
     imageToShowMask(repmat(~im1_masked,[1 1 3])) = 0; 
@@ -93,7 +94,9 @@ function [Xc, Yc, Zc] = blobFinder(camera1, camera2, steroParameters, filter)
     if(m >= 10)
         [Xc, Yc, Zc] = triangulate([xCam1,yCam1], [xCam2, yCam2], steroParameters);
     else
-        m
+        Xc = 0;
+        Yc = 0;
+        Zc = 0;
     end
    %return
 end
