@@ -31,7 +31,7 @@ function [Xc, Yc, Zc] = blobFinder(camera1, camera2, steroParameters, filter)
     
     %undistort image
     image1=undistortImage(image1, steroParameters.CameraParameters1);
-    image2=undistortImage(image2, steroParameters.CameraParameters2);
+    image2=undistortImage(image2, steroParameters.CameraParameters1);
     
     %show original image
     figure(1)

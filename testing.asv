@@ -1,0 +1,25 @@
+%camera setup
+load('steroConfig.mat');
+cam1 = webcam(1);
+%cam2 = webcam(2);
+
+image = snapshot(cam1);
+imshow(image)
+
+%[Xc, Yc, Zc] = blobFinder(cam1, cam2, stereoParams, "red")
+[id, loc, pose] = aprilFinder(cam1, stereoParams);
+
+%tag needs to be roughly parallel to camera for this to work worth a damn
+
+R_x_by_Pi = [1 0 0; 0 -1 0; 0 0 -1]; %flip tag assuming X axise is aligned with robot x axies
+
+%robot 0 tag to robot 0
+
+R_robot_0_tag_In_Cam = pose(1).Rotation
+R_robot_2_tag_In_Cam = pose(2).Rotation
+
+
+%rotate so z is facing camera like it should for our DH param
+R_robot_2_tag_In_Cam = transpose(transpose(R_robot_2_tag_In_Cam)*R_x_by_Pi)
+
+R_robot_0_tag_In_Cam = 
